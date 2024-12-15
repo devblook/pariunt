@@ -1,22 +1,17 @@
 package top.jonakls.pariunt.command;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import dev.triumphteam.cmd.core.BaseCommand;
+import dev.triumphteam.cmd.core.annotation.Command;
+import dev.triumphteam.cmd.core.annotation.Default;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+@Command(value = "pariunt", alias = {"par"})
+public class PariuntCommand extends BaseCommand {
 
-public class PariuntCommand extends Command {
+  @Default
+  public void execute(final @NotNull Player player) {
+    player.sendMessage("Hello, world!");
 
-  protected PariuntCommand(
-    @NotNull String name, @NotNull String description,
-    @NotNull String usageMessage, @NotNull List<String> aliases
-  ) {
-    super(name, description, usageMessage, aliases);
-  }
-
-  @Override
-  public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
-    return false;
   }
 }
