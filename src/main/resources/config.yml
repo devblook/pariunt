@@ -1,0 +1,54 @@
+config:
+  spawn-on-join: true
+  spawn-on-death: true
+  spawn-request:
+    enabled: true
+    time: 5 # Time in seconds
+    sound-countdown:
+      enabled: true
+      type: NOTE_PLING
+      volume: 1.0
+      pitch: 1.0
+    title-countdown:
+      enabled: true
+      title: '&cTeleportation Cooldown!'
+      subtitle: '&7You must wait %time% seconds!'
+      fadeIn: 20
+      stay: 60
+      fadeOut: 20
+  spawn-extra:
+    effect-on-pre-teleport:
+      enabled: true
+      type: NIGHT_VISION
+      amplifier: 1
+      duration: 1000000
+    effect-on-teleport:
+      enabled: true
+      type: NIGHT_VISION
+      amplifier: 1
+      duration: 1000000
+    sound-teleport:
+      enabled: true
+      type: AMBIENT_CAVE
+      volume: 1.0
+      pitch: 1.0
+    title-on-teleport:
+      enabled: true
+      title: '&aWelcome to the server!'
+      subtitle: '&7Enjoy your stay!'
+      fadeIn: 20
+      stay: 60
+      fadeOut: 20
+  messages:
+    reload-message: '&aConfiguration reloaded!'
+    no-permission: '&cYou do not have permission to use this command!'
+    player-only: '&cOnly players can use this command!'
+    spawn-set: '&aSpawn location set!'
+    spawn-teleport: '&aTeleported to spawn!'
+    spawn-cooldown: '&cYou must wait %time% seconds before teleporting to spawn again!'
+    spawn-request: '&aTeleporting to spawn in %time% seconds...'
+    spawn-not-set: '&cSpawn location not set!'
+    spawn-not-found: '&cSpawn location not found!'
+    spawn-not-teleport: '&cYou cannot teleport to spawn!'
+
+
