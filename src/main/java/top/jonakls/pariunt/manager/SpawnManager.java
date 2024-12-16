@@ -3,15 +3,17 @@ package top.jonakls.pariunt.manager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import top.jonakls.pariunt.PariuntPlugin;
+import top.jonakls.pariunt.request.TeleportRegistry;
+import top.jonakls.pariunt.request.TeleportRequest;
 
 public class SpawnManager {
 
-  private final Plugin plugin;
+  private final PariuntPlugin plugin;
   private Location spawnLocation;
 
-  public SpawnManager(final @NotNull Plugin plugin) {
+  public SpawnManager(final @NotNull PariuntPlugin plugin) {
     this.plugin = plugin;
   }
 
@@ -24,7 +26,41 @@ public class SpawnManager {
   }
 
   public void teleportToSpawn(final @NotNull Player player) {
-    player.teleportAsync(this.spawnLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+    if (this.spawnLocation == null) {
+      player.sendMessage("Spawn location is not set");
+      return;
+    }
+
+    final TeleportRegistry registry = this.plugin.getTeleportRegistry();
+    if (registry == null) {
+      this.plugin.getSLF4JLogger()
+        .info("Teleporting player to spawn location without request");
+      player.teleportAsync(this.spawnLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+      return;
+    }
+
+    this.plugin.getSLF4JLogger()
+      .info("Teleporting player to spawn location");
+
+    TeleportRequest request = registry.findRequest(player.getUniqueId());
+    if (request != null) {
+      player.sendMessage("You already have a pending request");
+      return;
+    }
+
+    request = TeleportRequest.of(player, this.spawnLocation);
+    request.setCountdown(this.maxSpawnCountdown());
+    registry.registerRequest(request);
+  }
+
+  public boolean enableSpawnOnJoin() {
+    return this.plugin.getConfig()
+             .getBoolean("config.spawn-on-join");
+  }
+
+  public int maxSpawnCountdown() {
+    return this.plugin.getConfig()
+             .getInt("config.spawn-request.time");
   }
 
   public void saveSpawnLocation() {
