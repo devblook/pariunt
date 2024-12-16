@@ -3,5 +3,5 @@ version: ${version}
 main: top.jonakls.pariunt.PariuntPlugin
 description: Paper Test Plugin
 api-version: '1.21.4'
-bootstrapper: top.jonakls.pariunt.PariuntPluginBootstrapper
-loader: top.jonakls.pariunt.PariuntPluginLoader
+# bootstrapper: top.jonakls.pariunt.PariuntPluginBootstrapper
+# loader: top.jonakls.pariunt.PariuntPluginLoader
